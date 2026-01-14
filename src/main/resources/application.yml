@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: core-banking-system
+  
+  # Supabase PostgreSQL Configuration
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:aws-1-ap-south-1.pooler.supabase.com}:${DB_PORT:5432}/${DB_NAME:postgres} 
+    username: ${DB_USERNAME:postgres.wcgixujjhlawpeuayuyh}
+    password: ${DB_PASSWORD:giapdeptrai}
+    driver-class-name: org.postgresql.Driver
+    hikari: 
+      maximum-pool-size: 10
+      minimum-idle: 5
+  
+  # JPA Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate  # Flyway manages schema, JPA only validates
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  
+  # Flyway Configuration
+  flyway:
+    enabled: true
+    baseline-on-migrate: true  # Allows Flyway to work with existing databases
+    baseline-version: 0
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    clean-disabled: true  # Safety: prevent accidental data loss
+
+# Application-specific Configuration
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-this-in-production-minimum-256-bits-secret-key}
+    expiration-ms: 86400000  # 24 hours
+  
+  interest:
+    savings-rate: 0.0350  # 3.5% annual
+    cron: "0 0 0 * * ?"   # Daily at midnight
+
+logging:
+  level:
+    root: INFO
+    com.banking.core: DEBUG
+    org.hibernate.SQL: DEBUG
