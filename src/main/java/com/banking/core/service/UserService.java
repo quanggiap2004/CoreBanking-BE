@@ -33,7 +33,6 @@ public class UserService {
     public User registerUser(RegisterRequest request) {
 
         log.info("Registering new user: {}", request.getUsername());
-
         // Create user
         User user = User.builder()
                 .username(request.getUsername())
@@ -42,7 +41,7 @@ public class UserService {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .address(request.getAddress())
-                .idDocumentNumber(request.getIdDocumentNumber())
+                .idDocumentNumber(request.getIdDocumentNumber().isEmpty() ? null : request.getIdDocumentNumber())
                 .kycVerified(false)
                 .status(UserStatus.ACTIVE)
                 .build();

@@ -37,6 +37,7 @@ public class AuthController {
 
         return ResponseEntity.ok(AuthResponse.builder()
                 .token(null)
+                .userId(user.getId())
                 .username(user.getUsername())
                 .message("Registration successful. Please login.")
                 .build());
@@ -44,7 +45,7 @@ public class AuthController {
 
     /**
      * POST /api/auth/login
-     * Authenticates user and returns JWT token.
+     * Authenticates user and returns JWT token with user information.
      */
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
@@ -56,8 +57,12 @@ public class AuthController {
 
         String token = jwtTokenProvider.generateToken(authentication);
 
+        // Get user details to include userId in response
+        User user = userService.findByUsername(request.getUsername());
+
         return ResponseEntity.ok(AuthResponse.builder()
                 .token(token)
+                .userId(user.getId())
                 .username(request.getUsername())
                 .message("Login successful")
                 .build());

@@ -3,7 +3,7 @@ package com.banking.core.dto;
 import lombok.*;
 
 /**
- * Response DTO containing JWT token.
+ * Response DTO containing JWT token and user information.
  */
 @Data
 @Builder
@@ -12,7 +12,11 @@ import lombok.*;
 public class AuthResponse {
 
     private String token;
-    private final String type = "Bearer";
+
+    @Builder.Default
+    private String type = "Bearer";
+
+    private Long userId;
     private String username;
     private String message;
 }
