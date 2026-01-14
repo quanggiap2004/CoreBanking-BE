@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 /**
  * Request DTO for fund transfers.
+ * Uses account numbers instead of internal IDs for better user experience.
  */
 @Data
 @Builder
@@ -14,11 +15,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TransferRequest {
 
-    @NotNull(message = "Source account ID is required")
-    private Long sourceAccountId;
+    @NotBlank(message = "Source account number is required")
+    private String sourceAccountNumber;
 
-    @NotNull(message = "Destination account ID is required")
-    private Long destinationAccountId;
+    @NotBlank(message = "Destination account number is required")
+    private String destinationAccountNumber;
 
     @NotNull(message = "Amount is required")
     @DecimalMin(value = "0.01", message = "Amount must be greater than 0")
