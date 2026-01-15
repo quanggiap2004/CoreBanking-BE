@@ -2,6 +2,9 @@
 
 A Spring Boot backend for a banking application with transaction safety and concurrency control.
 
+## Front-End
+Available at: https://corebankingfe.vercel.app/
+**Disclaimer**: Loading speed is slow due to server speed at free tier.
 ## Features
 
 - User registration with JWT authentication
@@ -17,6 +20,7 @@ A Spring Boot backend for a banking application with transaction safety and conc
 - **Database**: PostgreSQL (Supabase)
 - **Security**: Spring Security + JWT
 - **Build Tool**: Maven
+- **Deployment**: Koyeb (https://app.koyeb.com/)
 
 ## Database Schema
 
