@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Audit log for compliance tracking.
- * Records every balance change for regulatory purposes.
+ * Audit log entity for tracking balance changes.
  */
 @Entity
 @Table(name = "audit_logs")

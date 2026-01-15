@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller for transfer operations.
- * 
- * DEMONSTRATES: 3-Layer Architecture
- * Controller -> Service (with @Transactional) -> Repository (with locking)
+ * REST controller for fund transfer operations.
  */
 @RestController
 @RequestMapping("/api/transfers")

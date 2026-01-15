@@ -18,14 +18,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 /**
- * CRITICAL SERVICE: Handles fund transfers with ACID guarantees.
- * 
- * KEY FEATURES:
- * 1. Pessimistic locking to prevent concurrent modifications
- * 2. @Transactional ensures atomicity
- * 3. Deadlock prevention via ordered lock acquisition
- * 4. Comprehensive validation
- * 5. Audit logging for compliance
+ * Handles fund transfers between accounts with transaction safety.
  */
 @Service
 @RequiredArgsConstructor
@@ -37,22 +30,8 @@ public class TransferService {
         private final AuditService auditService;
 
         /**
-         * Executes a fund transfer between two accounts.
-         * 
-         * CONCURRENCY CONTROL:
-         * - Uses READ_COMMITTED isolation to prevent dirty reads
-         * - Acquires PESSIMISTIC_WRITE locks on both accounts
-         * - Locks acquired in ascending ID order to prevent deadlocks
-         * 
-         * ATOMICITY:
-         * - If ANY step fails, entire transaction rolls back
-         * - Database guarantees all-or-nothing execution
-         * 
-         * @param request transfer details
-         * @return transfer response with transaction reference
-         * @throws AccountNotFoundException      if account doesn't exist
-         * @throws InsufficientFundsException    if source balance is insufficient
-         * @throws InvalidAccountStatusException if account is not active
+         * Executes a fund transfer between accounts.
+         * Uses pessimistic locking to prevent concurrent modifications.
          */
         @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
         public TransferResponse transferFunds(TransferRequest request) {
@@ -157,14 +136,7 @@ public class TransferService {
                                 .build();
         }
 
-        /**
-         * Validates that transfer can proceed.
-         * 
-         * Checks:
-         * - Both accounts are ACTIVE
-         * - Source has sufficient balance
-         * - Amount is positive
-         */
+        // TODO: Add daily transfer limits
         private void validateTransfer(Account source, Account dest, BigDecimal amount) {
 
                 if (source.getStatus() != AccountStatus.ACTIVE) {

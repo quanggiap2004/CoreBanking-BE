@@ -57,34 +57,22 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    /**
-     * CORS configuration to allow React frontend access.
-     * Allows requests from http://localhost:5174 (Vite default port)
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Allow React dev server origin
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:5174",
-                "http://localhost:5173", // Alternative Vite port
-                "http://localhost:3000" // Create React App default port
-        ));
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "https://corebankingfe.vercel.app"));
 
-        // Allow all HTTP methods
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // Allow all headers (including Authorization for JWT)
         configuration.setAllowedHeaders(List.of("*"));
-
-        // Allow credentials (cookies, authorization headers)
         configuration.setAllowCredentials(true);
-
-        // Expose Authorization header to the frontend
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
 
-        // Cache preflight response for 1 hour
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

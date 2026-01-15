@@ -10,9 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * Account entity representing a bank account.
- * Uses BigDecimal for precise monetary calculations.
- * Includes version field for optimistic locking support.
+ * Bank account entity.
  */
 @Entity
 @Table(name = "accounts")
@@ -34,10 +32,6 @@ public class Account {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    /**
-     * Account balance - MUST use BigDecimal for precision.
-     * Never use float or double for money!
-     */
     @Column(nullable = false, precision = 19, scale = 4)
     @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
@@ -57,10 +51,6 @@ public class Account {
     @Column(name = "last_interest_date")
     private LocalDate lastInterestDate;
 
-    /**
-     * Version field for optimistic locking.
-     * Automatically incremented by JPA on each update.
-     */
     @Version
     @Builder.Default
     private Long version = 0L;

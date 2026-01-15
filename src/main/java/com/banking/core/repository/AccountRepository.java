@@ -13,57 +13,27 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Repository for Account entity.
- * 
- * KEY FEATURE: Pessimistic locking method to prevent concurrent modifications.
- */
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
     /**
-     * Finds account with PESSIMISTIC_WRITE lock.
-     * 
-     * This generates SQL: SELECT ... FROM accounts WHERE id = ? FOR UPDATE
-     * 
-     * The FOR UPDATE clause:
-     * - Acquires exclusive row-level lock
-     * - Blocks other transactions from reading/writing this row
-     * - Lock is released when transaction commits/rolls back
-     * 
-     * PREVENTS RACE CONDITIONS AND DOUBLE SPENDING!
-     * 
-     * @param accountId the account ID
-     * @return Optional containing locked account
+     * Finds account with pessimistic lock to prevent concurrent updates.
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Account a WHERE a.id = :accountId")
     Optional<Account> findByIdWithLock(@Param("accountId") Long accountId);
 
-    /**
-     * Finds account by account number.
-     */
     Optional<Account> findByAccountNumber(String accountNumber);
 
     /**
-     * Finds account by account number with PESSIMISTIC_WRITE lock.
-     * Used for transfers to prevent concurrent modifications.
-     * 
-     * @param accountNumber the account number
-     * @return Optional containing locked account
+     * Finds account by number with pessimistic lock (used for transfers).
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Account a WHERE a.accountNumber = :accountNumber")
     Optional<Account> findByAccountNumberWithLock(@Param("accountNumber") String accountNumber);
 
-    /**
-     * Finds all accounts belonging to a user.
-     */
     List<Account> findByUserId(Long userId);
 
-    /**
-     * Finds all SAVINGS accounts with ACTIVE status.
-     * Used by scheduler for interest calculation.
-     */
+    // For daily interest calculation job
     List<Account> findByAccountTypeAndStatus(AccountType accountType, AccountStatus status);
 }

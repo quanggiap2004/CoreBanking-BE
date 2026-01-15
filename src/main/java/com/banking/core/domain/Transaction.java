@@ -8,8 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * Immutable transaction record.
- * Every transfer creates a transaction entry for audit purposes.
+ * Transaction record entity.
  */
 @Entity
 @Table(name = "transactions")
