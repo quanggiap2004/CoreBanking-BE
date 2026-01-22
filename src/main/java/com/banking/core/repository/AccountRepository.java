@@ -36,4 +36,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     // For daily interest calculation job
     List<Account> findByAccountTypeAndStatus(AccountType accountType, AccountStatus status);
+
+    Account findByAccountNumberOrderByBalanceDesc(String accountNumber);
 }
