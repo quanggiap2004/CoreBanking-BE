@@ -3,7 +3,7 @@
 A Spring Boot backend for a banking application with transaction safety and concurrency control.
 
 ## Front-End
-Available at: https://corebankingfe.vercel.app/
+Available at: https://corebanking-fe.vercel.app/
 **Disclaimer**: Loading speed is slow due to server speed at free tier.
 ## Features
 
