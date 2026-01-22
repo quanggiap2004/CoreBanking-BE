@@ -65,7 +65,7 @@ public class SecurityConfig {
                 "http://localhost:5174",
                 "http://localhost:5173",
                 "http://localhost:3000",
-                "https://corebankingfe.vercel.app"));
+                "https://corebanking-fe.vercel.app"));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
