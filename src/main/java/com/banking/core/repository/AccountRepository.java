@@ -27,9 +27,10 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     /**
      * Finds account by number with pessimistic lock (used for transfers).
+     * Eagerly fetches User to access transaction limit.
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT a FROM Account a WHERE a.accountNumber = :accountNumber")
+    @Query("SELECT a FROM Account a JOIN FETCH a.user WHERE a.accountNumber = :accountNumber")
     Optional<Account> findByAccountNumberWithLock(@Param("accountNumber") String accountNumber);
 
     List<Account> findByUserId(Long userId);

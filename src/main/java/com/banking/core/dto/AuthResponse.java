@@ -18,5 +18,6 @@ public class AuthResponse {
 
     private Long userId;
     private String username;
+    private java.math.BigDecimal transactionLimit;
     private String message;
 }

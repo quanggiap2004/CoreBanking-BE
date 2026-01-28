@@ -3,6 +3,7 @@ package com.banking.core.controller;
 import com.banking.core.exception.AccountNotFoundException;
 import com.banking.core.exception.InsufficientFundsException;
 import com.banking.core.exception.InvalidAccountStatusException;
+import com.banking.core.exception.TransactionLimitExceededException;
 import com.banking.core.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleInvalidAccountStatus(InvalidAccountStatusException ex) {
         log.error("Invalid account status: {}", ex.getMessage());
         return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(TransactionLimitExceededException.class)
+    public ResponseEntity<ErrorResponse> handleTransactionLimitExceeded(TransactionLimitExceededException ex) {
+        log.error("Transaction limit exceeded: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

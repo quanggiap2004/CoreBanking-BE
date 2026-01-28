@@ -39,6 +39,7 @@ public class AuthController {
                 .token(null)
                 .userId(user.getId())
                 .username(user.getUsername())
+                .transactionLimit(user.getTransactionLimit())
                 .message("Registration successful. Please login.")
                 .build());
     }
@@ -64,6 +65,7 @@ public class AuthController {
                 .token(token)
                 .userId(user.getId())
                 .username(request.getUsername())
+                .transactionLimit(user.getTransactionLimit())
                 .message("Login successful")
                 .build());
     }

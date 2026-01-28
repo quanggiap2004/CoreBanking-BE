@@ -6,6 +6,7 @@ import com.banking.core.dto.TransferResponse;
 import com.banking.core.exception.AccountNotFoundException;
 import com.banking.core.exception.InsufficientFundsException;
 import com.banking.core.exception.InvalidAccountStatusException;
+import com.banking.core.exception.TransactionLimitExceededException;
 import com.banking.core.repository.AccountRepository;
 import com.banking.core.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -157,6 +158,14 @@ public class TransferService {
 
                 if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                         throw new IllegalArgumentException("Transfer amount must be greater than zero");
+                }
+
+                // FR-002: Check transaction limit
+                BigDecimal userTransactionLimit = source.getUser().getTransactionLimit();
+                if (amount.compareTo(userTransactionLimit) > 0) {
+                        throw new TransactionLimitExceededException(
+                                        String.format("Transaction amount $%s exceeds your limit of $%s",
+                                                        amount, userTransactionLimit));
                 }
 
                 log.debug("Validation passed");
