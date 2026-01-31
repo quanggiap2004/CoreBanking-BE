@@ -137,7 +137,6 @@ public class TransferService {
                                 .build();
         }
 
-        // TODO: Add daily transfer limits
         private void validateTransfer(Account source, Account dest, BigDecimal amount) {
 
                 if (source.getStatus() != AccountStatus.ACTIVE) {
