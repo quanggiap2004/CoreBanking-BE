@@ -12,3 +12,4 @@ _bmad/
 diff_output.txt
 .agent
 .claude
+src/main/resources/application.yml
