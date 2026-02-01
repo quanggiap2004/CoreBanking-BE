@@ -9,7 +9,6 @@ logs/
 *.log
 
 _bmad/
-_bmad-output/
 diff_output.txt
 .agent
 .claude
