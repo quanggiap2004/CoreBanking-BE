@@ -3,7 +3,7 @@
 A Spring Boot backend for a banking application with transaction safety and concurrency control.
 
 ## Front-End
-Available at: https://corebanking-fe.vercel.app/
+Available at: http://167.71.210.146
 **Disclaimer**: Loading speed is slow due to server speed at free tier.
 ## Features
 
@@ -20,7 +20,7 @@ Available at: https://corebanking-fe.vercel.app/
 - **Database**: PostgreSQL (Supabase)
 - **Security**: Spring Security + JWT
 - **Build Tool**: Maven
-- **Deployment**: Koyeb (https://app.koyeb.com/)
+- **Deployment**: Digital ocean
 
 ## Database Schema
 
