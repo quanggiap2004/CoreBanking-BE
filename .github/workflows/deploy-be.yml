@@ -32,6 +32,8 @@ jobs:
                 file: ./Dockerfile
                 push: true
                 tags: ${{ env.IMAGE_NAME }}:latest
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
             
     deploy:
         needs: build-and-push
@@ -44,6 +46,7 @@ jobs:
                 username: ${{ secrets.DROPLET_USER }}
                 key: ${{ secrets.DROPLET_SSH_KEY }}
                 script: |
+                    OLD_IMAGE_ID=$(docker images -q ${{ env.IMAGE_NAME }}:latest)
                     docker stop ${{ env.CONTAINER_NAME }} || true
                     docker rm ${{ env.CONTAINER_NAME }} || true
                     docker pull ${{ env.IMAGE_NAME }}:latest
@@ -56,4 +59,7 @@ jobs:
                                 -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
                                 -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
                                 ${{ env.IMAGE_NAME }}:latest
+                    if [ ! -z "$OLD_IMAGE_ID" ]; then
+                        docker rmi $OLD_IMAGE_ID || true
+                    fi
             
