@@ -57,6 +57,11 @@ public class User {
     @Builder.Default
     private BigDecimal transactionLimit = new BigDecimal("1000.00");
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    @Builder.Default
+    private Role role = Role.ROLE_USER;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Account> accounts = new ArrayList<>();
