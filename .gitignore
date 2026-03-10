@@ -7,9 +7,11 @@ target/
 .env
 logs/
 *.log
-
+_bmad-output/
 _bmad/
 diff_output.txt
 .agent
 .claude
 src/main/resources/application.yml
+CoreBanking/
+specs/

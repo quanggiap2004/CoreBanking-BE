@@ -28,6 +28,7 @@ Available at: http://167.71.210.146
 - `accounts` - Bank accounts
 - `transactions` - Transfer records
 - `audit_logs` - Balance change history
+- `user_audit_logs` - Administrative tracking of user profile modifications
 
 ## Setup
 
